@@ -1,5 +1,5 @@
 // ------------------- CONFIG -------------------
-const API_BASE = "https://eden-antalya.vercel.app";
+const API_BASE = "/"; // relative path so it works locally and on Vercel
 let currentLang = "tr";
 let currentGallery = [];
 let currentIndex = 0;
@@ -108,7 +108,7 @@ const DATA = {
 
 // ------------------- STARTUP -------------------
 document.addEventListener("DOMContentLoaded", () => {
-  // Buttons on welcome page
+  // Welcome screen
   document.getElementById("btn-tr")?.addEventListener("click", () => enterSite("tr"));
   document.getElementById("btn-en")?.addEventListener("click", () => enterSite("en"));
 
@@ -119,16 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("prev-img")?.addEventListener("click", () => showImage(-1));
   document.getElementById("next-img")?.addEventListener("click", () => showImage(1));
 
-  // Keyboard shortcuts
+  // Keyboard
   document.addEventListener("keydown", (e) => {
-    const open = getComputedStyle(modal).display === "flex";
-    if (!open) return;
+    if (getComputedStyle(modal).display !== "flex") return;
     if (e.key === "Escape") closeModal();
     if (e.key === "ArrowLeft") showImage(-1);
     if (e.key === "ArrowRight") showImage(1);
   });
 
-  // Language toggle
+  // Language switch
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".lang-btn").forEach((b) => b.classList.remove("active"));
@@ -141,12 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ------------------- ENTER SITE -------------------
 function enterSite(lang) {
-  const start = document.getElementById("start-screen");
-  start.style.display = "none";
+  document.getElementById("start-screen").style.display = "none";
   document.getElementById("ui-wrapper").style.display = "block";
   applyLanguage(lang);
   crossFadeSequence();
-  loadCommentsForStyle("eden-antalya");
+  loadComments();
 }
 
 // ------------------- CROSSFADE -------------------
@@ -156,7 +154,6 @@ function crossFadeSequence() {
     <img id="img1" src="${DATA.edenAntalya.site.sketch}" alt="Sketch Plan">
     <img id="img2" src="${DATA.edenAntalya.site.final}" alt="Final Render">
   `;
-
   const img1 = document.getElementById("img1");
   const img2 = document.getElementById("img2");
 
@@ -224,9 +221,7 @@ function buildThumbnails(imgs) {
   });
 }
 
-function showImage(change) {
-  showImageDirect(currentIndex + change);
-}
+function showImage(change) { showImageDirect(currentIndex + change); }
 
 function showImageDirect(i) {
   if (i < 0 || i >= currentGallery.length) return;
@@ -235,7 +230,6 @@ function showImageDirect(i) {
   setTimeout(() => modalImg.classList.remove("fade-in"), 400);
   modalImg.src = currentGallery[i];
   currentIndex = i;
-
   document.querySelectorAll(".thumbnail").forEach((t, idx) =>
     t.classList.toggle("active", idx === i)
   );
@@ -254,7 +248,6 @@ function enableSwipe(target) {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   });
-
   target.addEventListener("touchend", (e) => {
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
@@ -265,21 +258,19 @@ function enableSwipe(target) {
 }
 
 // ------------------- COMMENTS -------------------
-async function loadCommentsForStyle(style) {
+async function loadComments() {
   const list = document.getElementById("comment-list");
   list.innerHTML = "";
   try {
-    const res = await fetch(`${API_BASE}/api/comment?t=${Date.now()}`);
+    const res = await fetch(`${API_BASE}api/comment?t=${Date.now()}`);
     const data = await res.json();
     if (data.success) {
-      data.comments
-        .filter((c) => c.style === style)
-        .forEach((c) => {
-          const div = document.createElement("div");
-          div.className = "comment-item";
-          div.innerHTML = `<strong>${c.name}:</strong> ${c.text}`;
-          list.appendChild(div);
-        });
+      data.comments.forEach((c) => {
+        const div = document.createElement("div");
+        div.className = "comment-item";
+        div.innerHTML = `<strong>${c.name}</strong> <small>${new Date(c.timestamp).toLocaleString()}</small><br>${c.text}`;
+        list.appendChild(div);
+      });
       list.scrollTop = list.scrollHeight;
     }
   } catch (e) {
@@ -293,16 +284,16 @@ document.getElementById("send-comment")?.addEventListener("click", async () => {
   if (!name || !text) return;
 
   try {
-    const res = await fetch(`${API_BASE}/api/comment`, {
+    const res = await fetch(`${API_BASE}api/comment`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, text, style: "eden-antalya" }),
+      body: JSON.stringify({ name, text }),
     });
     const data = await res.json();
     if (data.success) {
       const div = document.createElement("div");
       div.className = "comment-item";
-      div.innerHTML = `<strong>${name}:</strong> ${text}`;
+      div.innerHTML = `<strong>${name}</strong> <small>${new Date().toLocaleString()}</small><br>${text}`;
       const list = document.getElementById("comment-list");
       list.appendChild(div);
       list.scrollTop = list.scrollHeight;
