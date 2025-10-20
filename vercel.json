@@ -1,6 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/comment.js": { "runtime": "nodejs20.x", "memory": 128 }
-  }
+    "api/comment.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "builds": [
+    { "src": "api/comment.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" }
+  ]
 }
