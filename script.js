@@ -136,6 +136,34 @@ document.addEventListener("DOMContentLoaded", () => {
       applyLanguage(currentLang);
     });
   });
+
+  // ✅ Attach send-comment listener *after* DOM loads
+  document.getElementById("send-comment")?.addEventListener("click", async () => {
+    const name = document.getElementById("name-input").value.trim();
+    const text = document.getElementById("comment-input").value.trim();
+    if (!name || !text) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/comment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, text }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        const div = document.createElement("div");
+        div.className = "comment-item";
+        div.innerHTML = `<strong>${name}</strong> <small>${new Date().toLocaleString()}</small><br>${text}`;
+        const list = document.getElementById("comment-list");
+        list.appendChild(div);
+        list.scrollTop = list.scrollHeight;
+        document.getElementById("name-input").value = "";
+        document.getElementById("comment-input").value = "";
+      }
+    } catch (e) {
+      console.error("Failed to send comment", e);
+    }
+  });
 });
 
 // ------------------- ENTER SITE -------------------
@@ -262,7 +290,7 @@ async function loadComments() {
   const list = document.getElementById("comment-list");
   list.innerHTML = "";
   try {
-    const res = await fetch(`${API_BASE}api/comment?t=${Date.now()}`);
+    const res = await fetch(`${API_BASE}/comment?t=${Date.now()}`);
     const data = await res.json();
     if (data.success) {
       data.comments.forEach((c) => {
@@ -277,33 +305,6 @@ async function loadComments() {
     console.error("Failed to load comments:", e);
   }
 }
-
-document.getElementById("send-comment")?.addEventListener("click", async () => {
-  const name = document.getElementById("name-input").value.trim();
-  const text = document.getElementById("comment-input").value.trim();
-  if (!name || !text) return;
-
-  try {
-    const res = await fetch(`${API_BASE}api/comment`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, text }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      const div = document.createElement("div");
-      div.className = "comment-item";
-      div.innerHTML = `<strong>${name}</strong> <small>${new Date().toLocaleString()}</small><br>${text}`;
-      const list = document.getElementById("comment-list");
-      list.appendChild(div);
-      list.scrollTop = list.scrollHeight;
-      document.getElementById("name-input").value = "";
-      document.getElementById("comment-input").value = "";
-    }
-  } catch (e) {
-    console.error("Failed to send comment", e);
-  }
-});
 
 // ------------------- LANGUAGE -------------------
 function applyLanguage(lang) {
