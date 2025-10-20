@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eden Antalya — TEAD.Studio</title>
+  <link rel="icon" href="assets/teads-logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- ---------- START SCREEN ---------- -->
+  <div id="start-screen">
+    <h1>Eden Antalya</h1>
+
+    <p class="slogan-tr">
+      “Eden Antalya — dinginliğin ve iyileşmenin Akdeniz’deki sığınağı; her anın
+      yavaşlamaya, nefes almaya ve yeniden başlamaya davet ettiği bir yer.”
+    </p>
+
+    <p class="slogan-en">
+      “Eden Antalya — a Mediterranean sanctuary of wellness and calm, where every
+      moment is an invitation to slow down, breathe, and begin again.”
+    </p>
+
+    <div id="start-buttons">
+      <button id="btn-tr">Devam Et</button>
+      <button id="btn-en">Continue</button>
+    </div>
+
+    <img id="start-logo" src="assets/teads-logo.png" alt="TEADS Logo" />
+  </div>
+
+  <!-- ---------- MAIN UI WRAPPER ---------- -->
+  <div id="ui-wrapper">
+    <!-- ---------- TOP BAR ---------- -->
+    <div id="topbar">
+      <div id="logo-container">
+        <img id="logo" src="assets/teads-logo.png" alt="TEADS Logo" />
+        <h1 id="project-title">Eden Antalya</h1>
+      </div>
+      <div id="language-toggle">
+        <button class="lang-btn active" data-lang="tr">TR</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+
+    <!-- ---------- IMAGE AREA ---------- -->
+    <div id="image-container">
+      <div id="image-wrapper"></div>
+    </div>
+
+    <!-- ---------- COMMENTS ---------- -->
+    <div id="footer">
+      <p><strong>Yorumlar:</strong></p>
+      <div id="comment-box">
+        <input type="text" id="name-input" placeholder="Adınız / Name" />
+        <textarea id="comment-input" placeholder="Yorumunuzu yazın / Write your comment"></textarea>
+        <button id="send-comment">Gönder / Send</button>
+      </div>
+      <div id="comment-list"></div>
+    </div>
+  </div>
+
+  <!-- ---------- MODAL ---------- -->
+  <div id="modal" aria-hidden="true">
+    <div id="modal-content" role="dialog" aria-modal="true">
+      <!-- Close button -->
+      <button class="close" aria-label="Close">×</button>
+
+      <!-- ⚙️  Image container (Grid area: image) -->
+      <div id="modal-image-container">
+        <button id="prev-img" class="nav-btn" aria-label="Previous">‹</button>
+        <img id="modal-img" src="" alt="Modal Image" />
+        <button id="next-img" class="nav-btn" aria-label="Next">›</button>
+      </div>
+
+      <!-- ⚙️  Thumbnails container (Grid area: thumbs) -->
+      <div id="thumbnail-container"></div>
+
+      <!-- ⚙️  Text container (Grid area: text) -->
+      <div id="modal-text">
+        <h2 id="modal-title"></h2>
+        <p id="modal-body"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- COPYRIGHT ---------- -->
+  <div id="copyright">
+    <p>© 2025 TEAD.Studio. All Rights Reserved.</p>
+  </div>
+
+  <!-- ---------- SCRIPT ---------- -->
+  <script src="script.js"></script>
+</body>
+</html>
