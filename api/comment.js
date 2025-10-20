@@ -31,8 +31,8 @@ export default async function handler(req, res) {
         },
       });
 
-      // file doesn't exist yet
       if (resp.status === 404) {
+        // File not yet created
         return res.status(200).json({ success: true, comments: [] });
       }
 
@@ -69,12 +69,10 @@ export default async function handler(req, res) {
         typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
 
       if (!name || !text) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Missing name or text field." });
+        return res.status(400).json({ success: false, message: "Missing name or text." });
       }
 
-      // Get existing comments or start new
+      // Retrieve existing comments or start new file
       const getResp = await fetch(`${API_URL}?ref=${BRANCH}`, {
         headers: {
           Authorization: `token ${GITHUB_TOKEN}`,
@@ -84,7 +82,7 @@ export default async function handler(req, res) {
 
       let fileData = null;
       let comments = [];
-      let sha = undefined;
+      let sha;
 
       if (getResp.status === 404) {
         comments = [];
@@ -100,14 +98,10 @@ export default async function handler(req, res) {
       }
 
       // Add new comment
-      const newComment = {
-        name,
-        text,
-        timestamp: new Date().toISOString(),
-      };
+      const newComment = { name, text, timestamp: new Date().toISOString() };
       comments.push(newComment);
 
-      // Update GitHub file
+      // Encode + update file
       const updatedContent = Buffer.from(
         JSON.stringify(comments, null, 2),
         "utf-8"
