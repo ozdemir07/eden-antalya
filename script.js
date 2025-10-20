@@ -1,5 +1,5 @@
 // ------------------- CONFIG -------------------
-const API_BASE = "/"; // relative path so it works locally and on Vercel
+const API_BASE = "https://eden-antalya.netlify.app/.netlify/functions";
 let currentLang = "tr";
 let currentGallery = [];
 let currentIndex = 0;
