@@ -37,8 +37,9 @@ exports.handler = async function (event) {
     return { statusCode: 500, headers, body: JSON.stringify({ success: false, message: "Missing GITHUB_TOKEN" }) };
   }
 
+  // ✅ use Bearer instead of token
   const ghHeaders = {
-    Authorization: `token ${GITHUB_TOKEN}`,
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
     "Content-Type": "application/json",
     Accept: "application/vnd.github+json",
   };
@@ -52,6 +53,7 @@ exports.handler = async function (event) {
 
       if (!resp.ok) {
         const errText = await resp.text();
+        console.error("GitHub GET failed:", errText);
         return { statusCode: resp.status, headers, body: JSON.stringify({ success: false, message: errText }) };
       }
 
@@ -59,6 +61,7 @@ exports.handler = async function (event) {
       const comments = decodeBase64JSON(fileData.content);
       return { statusCode: 200, headers, body: JSON.stringify({ success: true, comments }) };
     } catch (err) {
+      console.error("GET error:", err);
       return { statusCode: 500, headers, body: JSON.stringify({ success: false, message: err.message }) };
     }
   }
@@ -71,35 +74,40 @@ exports.handler = async function (event) {
         return { statusCode: 400, headers, body: JSON.stringify({ success: false, message: "Missing fields" }) };
       }
 
-      // Get existing file
+      // 1️⃣ Fetch existing file
       const getResp = await fetch(`${API_URL}?ref=${BRANCH}`, { headers: ghHeaders });
       const fileData = await getResp.json();
       const existing = fileData.content ? decodeBase64JSON(fileData.content) : [];
 
-      // Add new comment
+      // 2️⃣ Append new comment
       const newComment = { name, text, timestamp: new Date().toISOString() };
       existing.push(newComment);
 
-      // Update file
+      // 3️⃣ Update file via PUT
       const updatedContent = encodeBase64JSON(existing);
+      const putBody = {
+        message: `Add comment by ${name}`,
+        content: updatedContent,
+        branch: BRANCH,
+        sha: fileData.sha,
+      };
+
       const putResp = await fetch(API_URL, {
         method: "PUT",
         headers: ghHeaders,
-        body: JSON.stringify({
-          message: `Add comment by ${name}`,
-          content: updatedContent,
-          sha: fileData.sha,
-          branch: BRANCH,
-        }),
+        body: JSON.stringify(putBody),
       });
 
+      const resultText = await putResp.text(); // log result for debugging
+      console.log("PUT response:", putResp.status, resultText);
+
       if (!putResp.ok) {
-        const errText = await putResp.text();
-        return { statusCode: putResp.status, headers, body: JSON.stringify({ success: false, message: errText }) };
+        return { statusCode: putResp.status, headers, body: JSON.stringify({ success: false, message: resultText }) };
       }
 
       return { statusCode: 200, headers, body: JSON.stringify({ success: true, comment: newComment }) };
     } catch (err) {
+      console.error("POST error:", err);
       return { statusCode: 500, headers, body: JSON.stringify({ success: false, message: err.message }) };
     }
   }
