@@ -289,22 +289,79 @@ function enableSwipe(target) {
 async function loadComments() {
   const list = document.getElementById("comment-list");
   list.innerHTML = "";
+
   try {
-    const res = await fetch(`${API_BASE}/comment?t=${Date.now()}`);
-    const data = await res.json();
-    if (data.success) {
-      data.comments.forEach((c) => {
-        const div = document.createElement("div");
-        div.className = "comment-item";
-        div.innerHTML = `<strong>${c.name}</strong> <small>${new Date(c.timestamp).toLocaleString()}</small><br>${c.text}`;
-        list.appendChild(div);
-      });
-      list.scrollTop = list.scrollHeight;
+    let comments = [];
+
+    // Detect where we're running
+    const isNetlify = location.hostname.includes("netlify.app");
+
+    if (isNetlify) {
+      // ✅ Use Netlify backend
+      const res = await fetch(`${API_BASE}/comment?t=${Date.now()}`);
+      const data = await res.json();
+      if (data.success) comments = data.comments || [];
+    } else {
+      // ✅ Use GitHub API directly (for GitHub Pages)
+      const res = await fetch("https://api.github.com/repos/ozdemir07/eden-antalya/contents/comments.json");
+      if (res.ok) {
+        const file = await res.json();
+        const decoded = atob(file.content);
+        comments = JSON.parse(decoded);
+      }
     }
+
+    // Render comments
+    comments.forEach((c) => {
+      const div = document.createElement("div");
+      div.className = "comment-item";
+      const ts = new Date(c.timestamp).toLocaleString();
+      div.innerHTML = `<strong>${c.name}</strong> <small>${ts}</small><br>${c.text}`;
+      list.appendChild(div);
+    });
+
+    list.scrollTop = list.scrollHeight;
   } catch (e) {
     console.error("Failed to load comments:", e);
   }
 }
+
+document.getElementById("send-comment")?.addEventListener("click", async () => {
+  const name = document.getElementById("name-input").value.trim();
+  const text = document.getElementById("comment-input").value.trim();
+  if (!name || !text) return;
+
+  try {
+    const isNetlify = location.hostname.includes("netlify.app");
+
+    if (isNetlify) {
+      // ✅ Post via Netlify function
+      const res = await fetch(`${API_BASE}/comment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, text }),
+      });
+
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+    } else {
+      alert("⚠️ Comment submission works only on Netlify-hosted version.");
+      return;
+    }
+
+    // Add instantly to UI
+    const div = document.createElement("div");
+    div.className = "comment-item";
+    div.innerHTML = `<strong>${name}</strong> <small>${new Date().toLocaleString()}</small><br>${text}`;
+    const list = document.getElementById("comment-list");
+    list.appendChild(div);
+    list.scrollTop = list.scrollHeight;
+    document.getElementById("name-input").value = "";
+    document.getElementById("comment-input").value = "";
+  } catch (e) {
+    console.error("Failed to send comment", e);
+  }
+});
 
 // ------------------- LANGUAGE -------------------
 function applyLanguage(lang) {
