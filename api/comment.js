@@ -9,21 +9,23 @@ const BRANCH = "main";
 const API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
 
 /* ---------- Utility: JSON helper ---------- */
-function json(res, code, body) {
-  res.status(code).json(body);
-}
+const sendJson = (res, code, body) => {
+  res.status(code).setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(body));
+};
 
 /* ---------- Utility: Base64 helpers ---------- */
-function decodeBase64JSON(b64) {
+const decodeBase64JSON = (b64) => {
   try {
-    return JSON.parse(Buffer.from(b64, "base64").toString("utf-8") || "[]");
+    const jsonStr = Buffer.from(b64, "base64").toString("utf-8");
+    return JSON.parse(jsonStr || "[]");
   } catch {
     return [];
   }
-}
-function encodeBase64JSON(obj) {
-  return Buffer.from(JSON.stringify(obj, null, 2), "utf-8").toString("base64");
-}
+};
+
+const encodeBase64JSON = (obj) =>
+  Buffer.from(JSON.stringify(obj, null, 2), "utf-8").toString("base64");
 
 /* ---------- Utility: safe fetch with timeout ---------- */
 async function safeFetch(url, options = {}, timeout = 8000) {
@@ -33,35 +35,35 @@ async function safeFetch(url, options = {}, timeout = 8000) {
     const res = await fetch(url, { ...options, signal: controller.signal });
     clearTimeout(id);
     return res;
-  } catch (err) {
+  } catch {
     clearTimeout(id);
-    throw new Error("Timeout or network error");
+    throw new Error("Network or timeout error");
   }
 }
 
 /* ---------- Retry wrapper for 409 edit conflicts ---------- */
 async function putWithRetry(url, options, tries = 2) {
-  let lastErrText = "";
+  let lastErr = "";
   for (let i = 0; i < tries; i++) {
     const resp = await safeFetch(url, options, 8000);
     if (resp.ok) return resp;
     const status = resp.status;
-    lastErrText = await resp.text();
+    lastErr = await resp.text();
     if (status === 409) {
       await new Promise((r) => setTimeout(r, 300 + i * 200));
       continue;
     }
-    return new Response(lastErrText, { status });
+    return new Response(lastErr, { status });
   }
-  return new Response(lastErrText || "Conflict", { status: 409 });
+  return new Response(lastErr || "Conflict", { status: 409 });
 }
 
-/* ---------- Optional: simple in-memory rate limit ---------- */
-let lastPostTime = 0;
+/* ---------- Optional: lightweight in-memory rate limit ---------- */
+let lastPost = 0;
 function isRateLimited() {
   const now = Date.now();
-  if (now - lastPostTime < 2000) return true; // 2s cooldown
-  lastPostTime = now;
+  if (now - lastPost < 2000) return true;
+  lastPost = now;
   return false;
 }
 
@@ -75,7 +77,7 @@ export default async function handler(req, res) {
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (!GITHUB_TOKEN) {
-    return json(res, 500, { success: false, message: "Missing GITHUB_TOKEN" });
+    return sendJson(res, 500, { success: false, message: "Missing GITHUB_TOKEN" });
   }
 
   const ghHeaders = {
@@ -88,25 +90,31 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const resp = await safeFetch(`${API_URL}?ref=${BRANCH}`, { headers: ghHeaders });
-      if (resp.status === 404) return json(res, 200, { success: true, comments: [] });
-      if (!resp.ok) {
-        const errText = await resp.text();
-        console.error("GitHub GET failed:", errText);
-        return json(res, resp.status, { success: false, message: errText });
+      if (resp.status === 404) {
+        return sendJson(res, 200, { success: true, comments: [] });
       }
+      if (!resp.ok) {
+        const err = await resp.text();
+        console.error("GitHub GET failed:", err);
+        return sendJson(res, resp.status, { success: false, message: err });
+      }
+
       const fileData = await resp.json();
       const comments = decodeBase64JSON(fileData.content);
-      return json(res, 200, { success: true, comments });
+      return sendJson(res, 200, { success: true, comments });
     } catch (err) {
       console.error("API GET ERROR:", err);
-      return json(res, 500, { success: false, message: err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
   /* ---------- POST (Add comment) ---------- */
   if (req.method === "POST") {
     if (isRateLimited()) {
-      return json(res, 429, { success: false, message: "Slow down — please wait a moment." });
+      return sendJson(res, 429, {
+        success: false,
+        message: "Please wait a moment before posting again.",
+      });
     }
 
     try {
@@ -115,32 +123,30 @@ export default async function handler(req, res) {
       const { name, text, style } = body;
 
       if (!name || !text || !style) {
-        return json(res, 400, { success: false, message: "Missing fields" });
+        return sendJson(res, 400, { success: false, message: "Missing fields" });
       }
 
-      // Step 1: Fetch existing file or prepare fresh array
-      let fileData = null;
+      // Step 1: fetch existing file
       let comments = [];
       let sha;
-
       const getResp = await safeFetch(`${API_URL}?ref=${BRANCH}`, { headers: ghHeaders });
       if (getResp.status === 404) {
         comments = [];
       } else if (getResp.ok) {
-        fileData = await getResp.json();
+        const fileData = await getResp.json();
         comments = decodeBase64JSON(fileData.content);
         sha = fileData.sha;
       } else {
-        const errText = await getResp.text();
-        console.error("GitHub GET (before PUT) failed:", errText);
-        return json(res, getResp.status, { success: false, message: errText });
+        const err = await getResp.text();
+        console.error("GitHub GET (before PUT) failed:", err);
+        return sendJson(res, getResp.status, { success: false, message: err });
       }
 
-      // Step 2: Append new comment
+      // Step 2: append comment
       const newComment = { name, text, style, timestamp: new Date().toISOString() };
       comments.push(newComment);
 
-      // Step 3: PUT updated file
+      // Step 3: update GitHub file
       const updatedContent = encodeBase64JSON(comments);
       const putBody = {
         message: `Add comment by ${name}`,
@@ -156,18 +162,18 @@ export default async function handler(req, res) {
       });
 
       if (!putResp.ok) {
-        const errText = await putResp.text();
-        console.error("GitHub PUT failed:", errText);
-        return json(res, putResp.status, { success: false, message: errText });
+        const err = await putResp.text();
+        console.error("GitHub PUT failed:", err);
+        return sendJson(res, putResp.status, { success: false, message: err });
       }
 
-      return json(res, 200, { success: true, comment: newComment });
+      return sendJson(res, 200, { success: true, comment: newComment });
     } catch (err) {
       console.error("API POST ERROR:", err);
-      return json(res, 500, { success: false, message: err.message });
+      return sendJson(res, 500, { success: false, message: err.message });
     }
   }
 
   /* ---------- Fallback ---------- */
-  return json(res, 405, { success: false, message: "Method not allowed" });
+  return sendJson(res, 405, { success: false, message: "Method not allowed" });
 }
