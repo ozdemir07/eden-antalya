@@ -1,5 +1,5 @@
 // ------------------- CONFIG -------------------
-const API_BASE = "https://interactive-masterplan-mehmetislek0.vercel.app";
+const API_BASE = "https://eden-antalya.vercel.app";
 let currentLang = "tr";
 let currentGallery = [];
 let currentIndex = 0;
