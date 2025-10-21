@@ -14,11 +14,11 @@ const DATA = {
     hotspots: [
       {
         id: "social",
-        x: 36, y: 40,
+        x: 43.0, y: 37.1,
         caption: { tr: "Sosyal Merkez", en: "Social Center" },
         body: {
-          tr: "Sosyal Merkez, Eden Antalya’daki yaşamın ritmini bir araya getirir — gölgeli revakların altında yemek, sohbet ve gündelik ritüeller. Beyaz sıvalı duvarlar, ahşap pergolalar ve açık verandalar, dış manzaraya uzanan kesitler oluşturur. Burada iyilik hâli sıcaklıkla, topluluk duygusu doğallıkla buluşur. Sabahlar uzun öğle yemeklerine, akşamlar dinginliğe dönüşür — aidiyetin mimarisi.",
-          en: "The Social Center gathers the rhythm of life in Eden Antalya — dining, conversation, and everyday rituals beneath shaded arcades. White plaster walls, timber pergolas, and open verandas frame glimpses of the landscape beyond. Here, wellness meets warmth, and community feels effortless. It is where mornings stretch into long lunches and evenings drift into calm — the architecture of belonging.",
+          tr: "Eden’ın sosyal kalbi. Asmalarla gölgelenen teraslara açılan kemerli galerilerde insanlar yemekleri, hikâyeleri ve sessiz öğleden sonraları paylaşır. Işık kemerlerden süzülerek iç mekânın sıcaklığını avluların dinginliğiyle birleştirir. Her köşe, kahveyle, akşam yemeğiyle ya da sessizlikle bir buluşma davetidir.",
+          en: "The social heart of Eden. Sunlit arcades open to terraces shaded by vines, where people gather to share meals, stories, and quiet afternoons. Natural light moves through the arches, blending the warmth of the interior with the calm of the courtyards. Every corner invites connection — over coffee, over dinner, or in silence.",
         },
         imgs: [
           "assets/images/social/social_1.png",
@@ -30,11 +30,11 @@ const DATA = {
       },
       {
         id: "courtyard",
-        x: 78, y: 72,
+        x: 66.4, y: 50.3,
         caption: { tr: "Avlu Aksı", en: "Courtyard Axis" },
         body: {
-          tr: "Beyaz sıvalı duvarların çerçevelediği bir hava ve ışık bahçesi. Yansıtıcı havuzlar ve gölgeli geçitler arasında terakota zemin, lavanta ve biberiye birbirine karışır. Avlu Aksı; süitleri, pavyonları ve sosyal alanları koku ve sessizlikle birbirine bağlar. Gün batımında altın tonlara bürünen avlu, paylaşılan sessizliğin sahnesine dönüşür.",
-          en: "Garden of air and light framed by white plaster walls. Terracotta paving, lavender, and rosemary weave between reflecting pools and shaded walkways. Courtyard Axis connects the suites, pavilions, and social spaces through scent and silence. At sunset, the courtyard glows in gold and shadow, becoming a quiet stage for shared presence.",
+          tr: "Akdeniz güneşi altında paylaşılan bir sığınak. Zeytin ağaçları ve turunçgiller arasında uzanan pergolalı yollar, bitki kokularıyla ve kemerlerin arasından süzülen hafif bir sohbet uğultusuyla doludur. Burada zaman yavaşlar — kahve eşliğinde sohbetler uzar, ışık yaprakların arasından süzülür, her esinti denizin dinginliğini taşır.",
+          en: "A shared sanctuary under the Mediterranean sun. Paths shaded by pergolas lead through olive trees and citrus groves, where the air is fragrant with herbs and laughter drifts softly between the arches. Here, time slows — conversations unfold over coffee, light filters through leaves, and every breeze carries the calm of the sea.",
         },
         imgs: [
           "assets/images/courtyard/courtyard_1.png",
@@ -44,11 +44,11 @@ const DATA = {
       },
       {
         id: "pavilion",
-        x: 24, y: 60,
+        x: 32.2, y: 43.0,
         caption: { tr: "Bahçe Köşkü", en: "Garden Pavilion" },
         body: {
-          tr: "Zeytin ağaçları ve lavanta arasında yer alan Bahçe Köşkü, sessiz buluşmaların ve düşüncelerin mekânı. Küçük kapalı bir oda ile gölgeli açık teras, mimariyi koku, esinti ve ışıkla birleştirir. Sabahlar çay ve sohbetle yavaşça başlar; öğleden sonralar yaprak ve cırcır seslerinin ritmine karışır. Sadelik burada bir lüks değil, huzurun kendisidir.",
-          en: "Set among olive trees and lavender, the Garden Pavilion offers moments of quiet gathering and reflection. A small enclosed room and a shaded open terrace merge architecture with scent, breeze, and sunlight. Here, mornings begin slowly with tea and conversation; afternoons dissolve into the rhythm of leaves and cicadas. Simplicity becomes luxury — a space that holds nothing but calm.",
+          tr: "Lavanta ve zeytin ağaçları arasında, bahçe pavyonları sessiz bir gölge ve hafif bir esinti sunar. Beyaz kemerler yeşilliği çerçeveler, dokuma dokular ve ince kumaşlar rüzgârla nazikçe hareket eder. Bitki kokuları ve güneşle ısınmış taşların arasında okuma, dinlenme ve yavaş sohbetler için bir mekân.",
+          en: "Among lavender and olive trees, the garden pavilions offer quiet shade and soft breeze. White arches frame views of greenery, while woven textures and light fabrics move gently with the wind. A place for reading, resting, and slow conversation beneath the scent of herbs and sun-warmed stone.",
         },
         imgs: [
           "assets/images/pavilion/pavilion_1.png",
@@ -58,11 +58,11 @@ const DATA = {
       },
       {
         id: "wellness",
-        x: 56, y: 69,
+        x: 15.6, y: 40.0,
         caption: { tr: "Wellness Alanı", en: "Wellness Zone" },
         body: {
-          tr: "Eden Antalya’nın dingin kalbi olan Wellness Pavilion; taşın, suyun ve ışığın sessiz bir dengesi. Hamam, sauna ve terapi odaları; süzülmüş ışığın ve su sesinin buluştuğu avlular etrafında sıralanır. Her yüzey sıcak, her mekân nefes almayı hatırlatır. Bir varış noktası değil, yenilenmenin hâlidir — bedenin sakinliği yeniden hatırladığı bir yer.",
-          en: "The Wellness Pavilion is the heart of stillness in Eden Antalya — a quiet sequence of stone, water, and light. Hammam, sauna, and therapy rooms unfold around calm courtyards, where filtered sunlight meets the sound of flowing water. Every surface is warm to the touch; every space invites slow breathing. It is not a destination but a state of renewal — a place where the body remembers calm.",
+          tr: "Işık, su ve sessizlik, yenilenme için tasarlanmış mekânlarda buluşur. Hamamdan saunaya, her oda taşın sıcaklığını ve ışığın dinginliğini taşır. Yansımalar kemerlerde titreşir, zeytin ağaçlarının kokusu havayı doldurur. Buradaki iyilik hâli bir ritüel değil, dengeye dönüş yolculuğudur.",
+          en: "Light, water, and silence meet in a sequence of spaces designed for renewal. From hammam to sauna, each room draws warmth from stone and calm from light. Reflections ripple across arches, and the scent of olive trees fills the air. Wellness here is not a ritual — it is a return to balance.",
         },
         imgs: [
           "assets/images/wellness/wellness_1.png",
@@ -74,11 +74,11 @@ const DATA = {
       },
       {
         id: "accommodation-deluxe",
-        x: 94, y: 36,
+        x: 73.2, y: 35.2,
         caption: { tr: "Deluxe Odalar", en: "Deluxe Rooms" },
         body: {
-          tr: "Avlulara ve zeytin ağaçlarına bakan, aydınlık ve ferah mekânlar. Sade konforu ve Akdeniz havasını içeriye taşıyan bu odalar, doğayla zarif bir bağlantı kurmak isteyenler için tasarlandı.",
-          en: "Bright, elevated spaces overlooking courtyards and olive trees. Designed for quiet connection and effortless comfort, these rooms blend openness and warmth, allowing guests to feel the Mediterranean air flow through every moment.",
+          tr: "Terakota zeminler, kireç sıvalı duvarlar ve kemerli açıklıklardan süzülerek içeri giren yumuşak bir ışık. Her mekân manzaraya açılır, iç ile dış arasındaki sınır silinir. Havadaki lavanta ve ahşap kokusu, konfor ve dinginliğin sessiz ritmini taşır. Her detay sade, dokunsal ve sıcaktır; mekânın günle birlikte nefes almasına izin verir.",
+          en: "Terracotta floors, soft plaster walls, and sunlight that drifts gently through arched openings. Each space opens toward the landscape, blurring the line between inside and out. The air carries the scent of lavender and wood — a quiet rhythm of comfort and calm. Every detail is simple, tactile, and warm, allowing the room to breathe with the day.",
         },
         imgs: [
           "assets/images/accommodation-deluxe/accommodation-deluxe_1.png",
@@ -89,11 +89,11 @@ const DATA = {
       },
       {
         id: "accommodation-private",
-        x: 88, y: 28,
+        x: 87.9, y: 41.5,
         caption: { tr: "Özel Süitler", en: "Private Suites" },
         body: {
-          tr: "Bahçelerle çevrili kişisel sığınaklar — sessizliğin, gölgenin ve kokunun günün ritmini belirlediği yerler. Doğaya açılan özel teraslara sahip, tamamen dinginlik ve mahremiyet sunan tek katlı konaklama birimleri.",
-          en: "Personal sanctuaries surrounded by gardens — where silence, shade, and scent shape the rhythm of each day. Detached single-storey spaces with private terraces and views that open toward nature, offering an experience of complete seclusion and serenity.",
+          tr: "Her süit, kendine ait gizli bir avlu etrafında şekillenir — taş, ışık ve havadan oluşan özel bir dünya. Su sesi ve lavanta kokusu, sessiz bir geri çekilişin ritmini yaratır. İçeride yumuşak tonlar ve kıvrımlı yüzeyler dinlenmeye davet eder; dışarıda gün, sarmaşıklarla gölgelenen pergolaların altında uzar. Burada mahremiyet, yalnızlık değil; doğayla bütünleşen bir yakınlıktır — nefes almak, yavaşlamak ve manzaraya ait hissetmek için bir alan.",
+          en: "Each suite unfolds around its own secluded courtyard — a private world of stone, light, and air. The sound of water and the scent of lavender create a rhythm of quiet retreat. Inside, soft tones and curved surfaces invite rest; outside, the day lingers under vine-shaded pergolas. Here, privacy is not isolation but intimacy — a space to breathe, to slow down, and to belong to the landscape.",
         },
         imgs: [
           "assets/images/accommodation-private/accommodation-private_1.png",
