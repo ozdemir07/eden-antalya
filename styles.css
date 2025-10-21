@@ -41,21 +41,13 @@ input, textarea, button {
 #loading-center {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-}
-
-#loading-text {
-  font-size: 1rem;
-  color: #444;
-  letter-spacing: 0.5px;
 }
 
 #loading-bar {
   width: 200px;
-  height: 4px;
+  height: 3px;
   background: #ddd;
   border-radius: 2px;
   overflow: hidden;
@@ -64,7 +56,7 @@ input, textarea, button {
 #loading-progress {
   height: 100%;
   width: 0%;
-  background: #a16432; /* warm bronze tone matching your button color */
+  background: #a16432; /* bronze accent color */
   transition: width 0.3s ease;
 }
 
@@ -80,6 +72,15 @@ input, textarea, button {
 #loading-screen.fade-out {
   opacity: 0;
   pointer-events: none;
+}
+
+/* smooth fade for start screen */
+#start-screen {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+#start-screen.visible {
+  opacity: 1;
 }
 
 /* ---------- START SCREEN ---------- */

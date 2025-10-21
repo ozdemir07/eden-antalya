@@ -109,7 +109,6 @@ const DATA = {
 // ------------------- PRELOADER -------------------
 async function preloadImagesWithProgress(imageList) {
   const progressEl = document.getElementById("loading-progress");
-  const textEl = document.getElementById("loading-text");
   const total = imageList.length;
   let loaded = 0;
 
@@ -117,7 +116,6 @@ async function preloadImagesWithProgress(imageList) {
     loaded++;
     const percent = Math.round((loaded / total) * 100);
     progressEl.style.width = `${percent}%`;
-    textEl.textContent = `Loading ${percent}%`;
   };
 
   await Promise.all(
@@ -142,16 +140,13 @@ async function initSitePreload() {
 
   await preloadImagesWithProgress(allImages);
 
-  // Smooth transition
   const loader = document.getElementById("loading-screen");
   loader.classList.add("fade-out");
 
   setTimeout(() => {
     loader.remove();
-
     const start = document.getElementById("start-screen");
     start.style.display = "flex";
-    // ✨ gentle fade-in animation for start screen
     requestAnimationFrame(() => start.classList.add("visible"));
   }, 800);
 }
