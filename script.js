@@ -106,6 +106,58 @@ const DATA = {
   },
 };
 
+// ------------------- PRELOADER -------------------
+async function preloadImagesWithProgress(imageList) {
+  const progressEl = document.getElementById("loading-progress");
+  const textEl = document.getElementById("loading-text");
+  const total = imageList.length;
+  let loaded = 0;
+
+  const updateProgress = () => {
+    loaded++;
+    const percent = Math.round((loaded / total) * 100);
+    progressEl.style.width = `${percent}%`;
+    textEl.textContent = `Loading ${percent}%`;
+  };
+
+  await Promise.all(
+    imageList.map(
+      (src) =>
+        new Promise((resolve) => {
+          const img = new Image();
+          img.onload = img.onerror = () => {
+            updateProgress();
+            resolve();
+          };
+          img.src = src;
+        })
+    )
+  );
+}
+
+async function initSitePreload() {
+  const allImages = [];
+  allImages.push(DATA.edenAntalya.site.sketch, DATA.edenAntalya.site.final);
+  DATA.edenAntalya.hotspots.forEach((h) => allImages.push(...h.imgs));
+
+  await preloadImagesWithProgress(allImages);
+
+  // Smooth transition
+  const loader = document.getElementById("loading-screen");
+  loader.classList.add("fade-out");
+
+  setTimeout(() => {
+    loader.remove();
+
+    const start = document.getElementById("start-screen");
+    start.style.display = "flex";
+    // ✨ gentle fade-in animation for start screen
+    requestAnimationFrame(() => start.classList.add("visible"));
+  }, 800);
+}
+
+document.addEventListener("DOMContentLoaded", initSitePreload);
+
 // ------------------- STARTUP -------------------
 document.addEventListener("DOMContentLoaded", () => {
   // Welcome screen
