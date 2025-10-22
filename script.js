@@ -89,7 +89,6 @@ const DATA = {
           "assets/images/accommodation-deluxe/accommodation-deluxe_1.png",
           "assets/images/accommodation-deluxe/accommodation-deluxe_2.png",
           "assets/images/accommodation-deluxe/accommodation-deluxe_3.png",
-          "assets/images/accommodation-deluxe/accommodation-deluxe_4.png",
         ],
       },
       {
@@ -105,6 +104,7 @@ const DATA = {
           "assets/images/accommodation-private/accommodation-private_2.png",
           "assets/images/accommodation-private/accommodation-private_3.png",
           "assets/images/accommodation-private/accommodation-private_4.png",
+          "assets/images/accommodation-private/accommodation-private_5.png",
         ],
       },
       {

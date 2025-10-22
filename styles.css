@@ -1,27 +1,122 @@
+/* ---------- FONTS ---------- */
+@font-face {
+  font-family: "Satoshi";
+  src: url("assets/fonts/Satoshi-Regular.woff2") format("woff2"),
+       url("assets/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("assets/fonts/Spectral-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ---------- GLOBAL ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Satoshi", sans-serif;
   line-height: 1.5;
   background: #efefef;
   height: 100%;
   overflow-x: hidden;
+  color: #222;
+}
+
+/* Titles — start screen, topbar, modals */
+h1, h2, h3,
+#project-title,
+#start-screen h1,
+#modal-title {
+  font-family: "Spectral", serif;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  color: #111;
+  line-height: 1.2;
+}
+
+/* Scalable title sizes */
+#start-screen h1 {
+  font-size: clamp(2rem, 5vw, 3rem);   /* Big hero title */
+}
+
+#project-title,
+#modal-title {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+}
+
+h2 {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+}
+
+h3 {
+  font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+}
+
+/* ---------- FORMS & BUTTONS ---------- */
+input, textarea, button {
+  font-family: "Satoshi", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #222;
+  letter-spacing: 0.2px;
+}
+
+button {
+  font-weight: 500;
+  background: #a86a3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+
+button:hover {
+  background: #8a562f;
+  transform: scale(1.03);
+}
+
+/* ---------- START SCREEN BUTTONS ---------- */
+#start-screen button {
+  font-family: "Satoshi", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  background: #a86a3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+
+#start-screen button:hover {
+  background: #8a562f;
+  transform: scale(1.03);
+}
+
+/* Optional fade-in for buttons */
+#start-buttons {
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 :root {
   --topbar-h: 56px;
   --content-max: 1024px;
-}
-
-/* Normalize form fonts */
-input, textarea, button {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
 }
 
 /* ---------- LOADING SCREEN ---------- */
@@ -178,19 +273,32 @@ input, textarea, button {
   white-space: nowrap;
 }
 
-#language-toggle { display: flex; gap: 0.5rem; }
+/* ---------- LANGUAGE TOGGLE ---------- */
+#language-toggle { 
+  display: flex; 
+  gap: 0.5rem; 
+}
+
 .lang-btn {
+  font-family: "Satoshi", sans-serif;
   background: transparent;
   border: 1px solid #ccc;
+  color: #555;
   padding: 3px 8px;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  border-radius: 4px;
 }
-.lang-btn:hover { background: #ddd; }
+
+.lang-btn:hover {
+  background: #ddd;
+  color: #000;
+}
+
 .lang-btn.active {
   background: #a86a3c;
-  color: white;
+  color: #fff;
   border-color: #a86a3c;
 }
 
