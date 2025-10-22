@@ -17,8 +17,8 @@ const DATA = {
         x: 43.0, y: 37.1,
         caption: { tr: "Sosyal Merkez", en: "Social Center" },
         body: {
-          tr: "Eden’ın sosyal kalbi. Asmalarla gölgelenen teraslara açılan kemerli galerilerde insanlar yemekleri, hikâyeleri ve sessiz öğleden sonraları paylaşır. Işık kemerlerden süzülerek iç mekânın sıcaklığını avluların dinginliğiyle birleştirir. Her köşe, kahveyle, akşam yemeğiyle ya da sessizlikle bir buluşma davetidir.",
-          en: "The social heart of Eden. Sunlit arcades open to terraces shaded by vines, where people gather to share meals, stories, and quiet afternoons. Natural light moves through the arches, blending the warmth of the interior with the calm of the courtyards. Every corner invites connection — over coffee, over dinner, or in silence.",
+          tr: "Günlük yaşamın doğal akışıyla canlanan sıcak bir merkez — gün ışığı altında sohbet, yemek ve huzurlu bir buluşma noktası.",
+          en: "A warm and lively heart where daily life unfolds — dining, conversation, and relaxation beneath sunlit arches.",
         },
         imgs: [
           "assets/images/social/social_1.png",
@@ -26,15 +26,17 @@ const DATA = {
           "assets/images/social/social_3.png",
           "assets/images/social/social_4.png",
           "assets/images/social/social_5.png",
+          "assets/images/social/social_6.png",
+          "assets/images/social/social_7.png",
         ],
       },
       {
         id: "courtyard",
-        x: 66.4, y: 50.3,
+        x: 66.4, y: 53.0,
         caption: { tr: "Avlu Aksı", en: "Courtyard Axis" },
         body: {
-          tr: "Akdeniz güneşi altında paylaşılan bir sığınak. Zeytin ağaçları ve turunçgiller arasında uzanan pergolalı yollar, bitki kokularıyla ve kemerlerin arasından süzülen hafif bir sohbet uğultusuyla doludur. Burada zaman yavaşlar — kahve eşliğinde sohbetler uzar, ışık yaprakların arasından süzülür, her esinti denizin dinginliğini taşır.",
-          en: "A shared sanctuary under the Mediterranean sun. Paths shaded by pergolas lead through olive trees and citrus groves, where the air is fragrant with herbs and laughter drifts softly between the arches. Here, time slows — conversations unfold over coffee, light filters through leaves, and every breeze carries the calm of the sea.",
+          tr: "Zeytin ağaçları, terakota ve Akdeniz ışığı yapılar arasında huzurlu bir hat oluşturur — durmak, buluşmak ve nefes almak için bir alan.",
+          en: "Olive trees, terracotta, and Mediterranean light shape a calm path between buildings — a space to pause, meet, and breathe.",
         },
         imgs: [
           "assets/images/courtyard/courtyard_1.png",
@@ -47,8 +49,8 @@ const DATA = {
         x: 32.2, y: 43.0,
         caption: { tr: "Bahçe Köşkü", en: "Garden Pavilion" },
         body: {
-          tr: "Lavanta ve zeytin ağaçları arasında, bahçe pavyonları sessiz bir gölge ve hafif bir esinti sunar. Beyaz kemerler yeşilliği çerçeveler, dokuma dokular ve ince kumaşlar rüzgârla nazikçe hareket eder. Bitki kokuları ve güneşle ısınmış taşların arasında okuma, dinlenme ve yavaş sohbetler için bir mekân.",
-          en: "Among lavender and olive trees, the garden pavilions offer quiet shade and soft breeze. White arches frame views of greenery, while woven textures and light fabrics move gently with the wind. A place for reading, resting, and slow conversation beneath the scent of herbs and sun-warmed stone.",
+          tr: "Lavanta ve zeytin ağaçlarının arasında sakin bir durak — esintiye açık, sarmaşıkların gölgesinde, sessizliğin yumuşaklığıyla çevrili.",
+          en: "A tranquil retreat among lavender and olive trees — open to the breeze, shaded by vines, and filled with gentle silence.",
         },
         imgs: [
           "assets/images/pavilion/pavilion_1.png",
@@ -61,8 +63,8 @@ const DATA = {
         x: 15.6, y: 40.0,
         caption: { tr: "Wellness Alanı", en: "Wellness Zone" },
         body: {
-          tr: "Işık, su ve sessizlik, yenilenme için tasarlanmış mekânlarda buluşur. Hamamdan saunaya, her oda taşın sıcaklığını ve ışığın dinginliğini taşır. Yansımalar kemerlerde titreşir, zeytin ağaçlarının kokusu havayı doldurur. Buradaki iyilik hâli bir ritüel değil, dengeye dönüş yolculuğudur.",
-          en: "Light, water, and silence meet in a sequence of spaces designed for renewal. From hammam to sauna, each room draws warmth from stone and calm from light. Reflections ripple across arches, and the scent of olive trees fills the air. Wellness here is not a ritual — it is a return to balance.",
+          tr: "Dingin bir yenilenme alanı — termal sular, yumuşak ışık ve bedeni zihinle dengeye getiren mekânlar.",
+          en: "A serene sanctuary for renewal — thermal waters, quiet light, and spaces that restore balance between body and mind.",
         },
         imgs: [
           "assets/images/wellness/wellness_1.png",
@@ -70,6 +72,9 @@ const DATA = {
           "assets/images/wellness/wellness_3.png",
           "assets/images/wellness/wellness_4.png",
           "assets/images/wellness/wellness_5.png",
+          "assets/images/wellness/wellness_6.png",
+          "assets/images/wellness/wellness_7.png",
+          "assets/images/wellness/wellness_8.png",
         ],
       },
       {
@@ -77,8 +82,8 @@ const DATA = {
         x: 73.2, y: 35.2,
         caption: { tr: "Deluxe Odalar", en: "Deluxe Rooms" },
         body: {
-          tr: "Terakota zeminler, kireç sıvalı duvarlar ve kemerli açıklıklardan süzülerek içeri giren yumuşak bir ışık. Her mekân manzaraya açılır, iç ile dış arasındaki sınır silinir. Havadaki lavanta ve ahşap kokusu, konfor ve dinginliğin sessiz ritmini taşır. Her detay sade, dokunsal ve sıcaktır; mekânın günle birlikte nefes almasına izin verir.",
-          en: "Terracotta floors, soft plaster walls, and sunlight that drifts gently through arched openings. Each space opens toward the landscape, blurring the line between inside and out. The air carries the scent of lavender and wood — a quiet rhythm of comfort and calm. Every detail is simple, tactile, and warm, allowing the room to breathe with the day.",
+          tr: "Yumuşak ışık, doğal dokular ve dingin bir konfor — bahçe kokularına ve güneşli avlulara açılan zarif bir alan.",
+          en: "Soft light, natural textures, and quiet comfort — an intimate space that opens to the scent of gardens and sunlit courtyards.",
         },
         imgs: [
           "assets/images/accommodation-deluxe/accommodation-deluxe_1.png",
@@ -92,8 +97,8 @@ const DATA = {
         x: 87.9, y: 41.5,
         caption: { tr: "Özel Süitler", en: "Private Suites" },
         body: {
-          tr: "Her süit, kendine ait gizli bir avlu etrafında şekillenir — taş, ışık ve havadan oluşan özel bir dünya. Su sesi ve lavanta kokusu, sessiz bir geri çekilişin ritmini yaratır. İçeride yumuşak tonlar ve kıvrımlı yüzeyler dinlenmeye davet eder; dışarıda gün, sarmaşıklarla gölgelenen pergolaların altında uzar. Burada mahremiyet, yalnızlık değil; doğayla bütünleşen bir yakınlıktır — nefes almak, yavaşlamak ve manzaraya ait hissetmek için bir alan.",
-          en: "Each suite unfolds around its own secluded courtyard — a private world of stone, light, and air. The sound of water and the scent of lavender create a rhythm of quiet retreat. Inside, soft tones and curved surfaces invite rest; outside, the day lingers under vine-shaded pergolas. Here, privacy is not isolation but intimacy — a space to breathe, to slow down, and to belong to the landscape.",
+          tr: "Kendine ait avlularıyla gizli bir sığınak — doğa ve dinginliğin uyumla buluştuğu bir alan.",
+          en: "Secluded sanctuaries with private courtyards — where nature and stillness meet in perfect harmony.",
         },
         imgs: [
           "assets/images/accommodation-private/accommodation-private_1.png",
@@ -102,6 +107,36 @@ const DATA = {
           "assets/images/accommodation-private/accommodation-private_4.png",
         ],
       },
+      {
+        id: "cultural",
+        x: 58.6, y: 40.5,
+        caption: { tr: "Kültür Merkezi", en: "Cultural Center" },
+        body: {
+          tr: "Yaratıcılığın ve paylaşımın buluştuğu bir mekân — sanat, öğrenme ve huzurlu birliktelik doğal ışıkta şekillenir.",
+          en: "A meeting place for creativity and reflection — where art, learning, and shared experiences come together in soft natural light.",
+        },
+        imgs: [
+          "assets/images/cultural/cultural_1.png",
+          "assets/images/cultural/cultural_2.png",
+          "assets/images/cultural/cultural_3.png",
+          "assets/images/cultural/cultural_4.png",
+          "assets/images/cultural/cultural_5.png",
+        ],
+      },
+      {
+        id: "welcoming",
+        x: 87.9, y: 61.0,
+        caption: { tr: "Karşılama Alanı", en: "Welcoming Area" },
+        body: {
+          tr: "Karşılama alanı, Eden Antalya’nın atmosferini belirler — mimarinin konforla, sessizliğin ışıkla buluştuğu bir yer.",
+          en: "The welcoming area sets the tone for Eden Antalya — a place where architecture meets comfort and silence meets light.",
+        },
+        imgs: [
+          "assets/images/welcoming/welcoming_1.png",
+          "assets/images/welcoming/welcoming_2.png",
+          "assets/images/welcoming/welcoming_3.png",
+        ],
+      },      
     ],
   },
 };
@@ -276,7 +311,6 @@ function openModal(imgs, title, body) {
   modalImg.src = imgs[0];
   buildThumbnails(imgs);
   updateNavButtons();
-  enableSwipe(modalImg);
 }
 
 function closeModal() {
@@ -300,11 +334,19 @@ function showImage(change) { showImageDirect(currentIndex + change); }
 
 function showImageDirect(i) {
   if (i < 0 || i >= currentGallery.length) return;
+
   const modalImg = document.getElementById("modal-img");
   modalImg.classList.add("fade-in");
-  setTimeout(() => modalImg.classList.remove("fade-in"), 400);
+  modalImg.style.pointerEvents = "none"; // disable events during fade
+
+  setTimeout(() => {
+    modalImg.classList.remove("fade-in");
+    modalImg.style.pointerEvents = "auto";
+  }, 400);
+
   modalImg.src = currentGallery[i];
   currentIndex = i;
+
   document.querySelectorAll(".thumbnail").forEach((t, idx) =>
     t.classList.toggle("active", idx === i)
   );
@@ -314,22 +356,6 @@ function showImageDirect(i) {
 function updateNavButtons() {
   document.getElementById("prev-img").style.display = currentIndex > 0 ? "block" : "none";
   document.getElementById("next-img").style.display = currentIndex < currentGallery.length - 1 ? "block" : "none";
-}
-
-function enableSwipe(target) {
-  let startX = 0, startY = 0;
-  target.addEventListener("touchstart", (e) => {
-    if (e.touches.length > 1) return;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  });
-  target.addEventListener("touchend", (e) => {
-    const dx = e.changedTouches[0].clientX - startX;
-    const dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy)) {
-      dx < 0 ? showImage(1) : showImage(-1);
-    }
-  });
 }
 
 // ------------------- COMMENTS -------------------

@@ -333,6 +333,9 @@ input, textarea, button {
   width: 100%;
 }
 #modal-img {
+  touch-action: none; /* disables Safari scroll interference */
+  -webkit-user-drag: none;
+  user-select: none;
   width: 100%;
   height: auto;
   max-height: 70vh;
@@ -351,7 +354,17 @@ input, textarea, button {
   scrollbar-width: none;
   padding: 0.25rem 0;
 }
-#thumbnail-container::-webkit-scrollbar { display: none; }
+
+#thumbnail-container {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+#thumbnail-container:has(.thumbnail:nth-child(n+7)) .thumbnail {
+  width: clamp(32px, 6vw, 44px);
+  height: clamp(32px, 6vw, 44px);
+}
 
 .thumbnail {
   width: clamp(44px, 10vw, 64px);
